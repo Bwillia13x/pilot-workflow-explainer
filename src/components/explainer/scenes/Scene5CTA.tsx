@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { ConvergingParticles } from '../visualizations/ConvergingParticles';
 
 interface Scene5Props {
   isActive: boolean;
@@ -13,19 +14,22 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
       "transition-all duration-700",
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
+      {/* Converging particles visualization */}
+      <ConvergingParticles isActive={isActive} className="opacity-60" />
+
       {/* Soft gradient background */}
       <div className={cn(
-        "absolute inset-0 opacity-50",
+        "absolute inset-0 opacity-50 pointer-events-none",
         "bg-gradient-to-b from-transparent via-lavender-light/30 to-lavender-light/50"
       )} />
 
       {/* Logo */}
       <div className={cn(
-        "mb-8 transition-all duration-700 delay-100",
+        "mb-8 transition-all duration-700 delay-100 z-10",
         isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-foreground flex items-center justify-center">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-foreground flex items-center justify-center shadow-lg">
             <span className="text-xl md:text-2xl font-bold text-background">P</span>
           </div>
           <span className="text-2xl md:text-3xl font-bold text-foreground">Prairie Signal</span>
@@ -52,7 +56,7 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
 
       {/* CTA Button */}
       <div className={cn(
-        "flex flex-col items-center gap-4",
+        "flex flex-col items-center gap-4 z-10",
         "transition-all duration-700 delay-400",
         isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}>
@@ -63,7 +67,7 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
             "bg-foreground text-background",
             "hover:bg-foreground/90",
             "transition-all duration-300",
-            "group overflow-hidden shadow-lg",
+            "group overflow-hidden shadow-xl",
             isActive && "animate-glow"
           )}
           onClick={() => window.open('https://prairiesignal.ca', '_blank')}
@@ -91,7 +95,7 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
 
       {/* Tagline */}
       <div className={cn(
-        "absolute bottom-8 left-1/2 -translate-x-1/2",
+        "absolute bottom-8 left-1/2 -translate-x-1/2 z-10",
         "transition-all duration-700 delay-600",
         isActive ? "opacity-100" : "opacity-0"
       )}>

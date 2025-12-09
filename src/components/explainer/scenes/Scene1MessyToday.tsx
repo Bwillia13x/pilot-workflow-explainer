@@ -1,5 +1,6 @@
 import { Mail, FileSpreadsheet, MessageSquare, StickyNote, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { FlowingWaves } from '../visualizations/FlowingWaves';
 
 interface Scene1Props {
   isActive: boolean;
@@ -30,6 +31,9 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
       "transition-all duration-700",
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
+      {/* Flowing waves background - chaotic variant */}
+      <FlowingWaves isActive={isActive} variant="chaos" className="opacity-60" />
+
       {/* Text content */}
       <div className="text-center mb-8 md:mb-12 z-10">
         <h2 className={cn(
@@ -37,7 +41,7 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <span className="font-serif">Right now,</span> your team is doing this by hand.
+          <span className="font-serif italic">Right now,</span> your team is doing this by hand.
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
@@ -50,7 +54,7 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
 
       {/* Messy diagram */}
       <div className={cn(
-        "relative w-full max-w-xl md:max-w-2xl h-64 md:h-80",
+        "relative w-full max-w-xl md:max-w-2xl h-64 md:h-80 z-10",
         "transition-all duration-700 delay-300",
         isActive ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
@@ -96,7 +100,7 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
               transitionDelay: `${300 + i * 100}ms`
             }}
           >
-            <div className="p-3 md:p-4 rounded-lg bg-background border border-border shadow-sm">
+            <div className="p-3 md:p-4 rounded-lg bg-background border border-border shadow-sm backdrop-blur-sm">
               <item.Icon className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground" />
             </div>
             <span className="text-xs md:text-sm text-muted-foreground whitespace-nowrap font-medium">
