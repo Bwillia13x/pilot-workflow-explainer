@@ -63,16 +63,18 @@ export const PilotExplainer = () => {
     <section 
       className={cn(
         "relative w-full min-h-screen overflow-hidden",
-        "gradient-prairie bg-grid"
+        "bg-background"
       )}
       aria-label="How a Pilot Works - Prairie Signal"
     >
+      {/* Soft lavender gradient overlay */}
+      <div className="absolute inset-0 gradient-lavender-radial pointer-events-none" />
+      
       {/* Particle background */}
       <ParticleField />
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20 pointer-events-none" />
+      {/* Subtle grid */}
+      <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
 
       {/* Scene container */}
       <div className="relative w-full h-screen">
@@ -98,9 +100,9 @@ export const PilotExplainer = () => {
             onClick={togglePause}
             className={cn(
               "p-2.5 rounded-full",
-              "bg-card/50 backdrop-blur-sm border border-border/50",
+              "bg-background/80 backdrop-blur-sm border border-border",
               "text-muted-foreground hover:text-foreground",
-              "transition-all duration-200 hover:scale-105"
+              "transition-all duration-200 hover:scale-105 shadow-sm"
             )}
             aria-label={isPaused ? "Play" : "Pause"}
           >
@@ -117,9 +119,9 @@ export const PilotExplainer = () => {
           onClick={resetAnimation}
           className={cn(
             "flex items-center gap-2 px-4 py-2.5 rounded-full",
-            "bg-card/50 backdrop-blur-sm border border-border/50",
+            "bg-background/80 backdrop-blur-sm border border-border",
             "text-muted-foreground hover:text-foreground",
-            "transition-all duration-200 hover:scale-105",
+            "transition-all duration-200 hover:scale-105 shadow-sm",
             isComplete && "animate-pulse"
           )}
           aria-label="Replay animation"
@@ -146,7 +148,7 @@ export const PilotExplainer = () => {
                 ? "bg-primary w-6" 
                 : currentScene > i 
                   ? "bg-primary/50" 
-                  : "bg-muted/50"
+                  : "bg-border"
             )}
             aria-label={`Go to scene ${i + 1}`}
           />

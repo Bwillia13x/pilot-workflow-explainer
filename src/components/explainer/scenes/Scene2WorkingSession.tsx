@@ -33,7 +33,7 @@ export const Scene2WorkingSession = ({ isActive }: Scene2Props) => {
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          We sit down for a working session.
+          <span className="font-serif">We sit down</span> for a working session.
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
@@ -51,7 +51,7 @@ export const Scene2WorkingSession = ({ isActive }: Scene2Props) => {
         isActive ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
         {/* Main whiteboard container */}
-        <div className="bg-card/30 border border-border/50 rounded-xl p-6 md:p-8 backdrop-blur-sm">
+        <div className="bg-background/80 border border-border rounded-xl p-6 md:p-8 shadow-sm backdrop-blur-sm">
           {/* Grid of workflow steps */}
           <div className="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
             {workflowSteps.map((step, i) => (
@@ -61,15 +61,15 @@ export const Scene2WorkingSession = ({ isActive }: Scene2Props) => {
                   "relative px-3 py-2 md:px-4 md:py-3 rounded-lg border text-center",
                   "transition-all duration-500",
                   step.highlighted 
-                    ? "bg-secondary/20 border-secondary text-secondary animate-highlight" 
-                    : "bg-card/50 border-border/50 text-muted-foreground",
+                    ? "bg-secondary/10 border-secondary text-secondary animate-highlight" 
+                    : "bg-muted/30 border-border text-muted-foreground",
                   isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ transitionDelay: `${400 + i * 50}ms` }}
               >
                 <span className="text-xs md:text-sm font-medium">{step.label}</span>
                 {step.highlighted && (
-                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 bg-secondary text-secondary-foreground text-[10px] font-bold rounded">
+                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 bg-secondary text-secondary-foreground text-[10px] font-bold rounded uppercase tracking-wide">
                     High friction
                   </span>
                 )}

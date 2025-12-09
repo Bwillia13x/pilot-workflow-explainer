@@ -58,20 +58,20 @@ export default {
           ring: 'hsl(var(--sidebar-ring))'
         },
         // Custom Prairie Signal colors
-        navy: {
-          DEFAULT: 'hsl(var(--navy))',
-          light: 'hsl(var(--navy-light))',
-          lighter: 'hsl(var(--navy-lighter))'
+        lavender: {
+          DEFAULT: 'hsl(var(--lavender))',
+          light: 'hsl(var(--lavender-light))',
+          muted: 'hsl(var(--lavender-muted))'
         },
         teal: {
           DEFAULT: 'hsl(var(--teal))',
           muted: 'hsl(var(--teal-muted))',
           glow: 'hsl(var(--teal-glow))'
         },
-        gold: {
-          DEFAULT: 'hsl(var(--gold))',
-          warm: 'hsl(var(--gold-warm))',
-          muted: 'hsl(var(--gold-muted))'
+        dark: {
+          bg: 'hsl(var(--dark-bg))',
+          fg: 'hsl(var(--dark-fg))',
+          muted: 'hsl(var(--dark-muted))'
         }
       },
       borderRadius: {
@@ -80,7 +80,8 @@ export default {
         sm: 'calc(var(--radius) - 4px)'
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif']
       },
       keyframes: {
         'accordion-down': {
@@ -117,8 +118,8 @@ export default {
           '100%': { transform: 'translateX(100%)', opacity: '0' }
         },
         'highlight': {
-          '0%, 100%': { boxShadow: '0 0 0 0 hsl(var(--gold) / 0.4)' },
-          '50%': { boxShadow: '0 0 20px 5px hsl(var(--gold) / 0.6)' }
+          '0%, 100%': { boxShadow: '0 0 0 0 hsl(var(--teal) / 0.4)' },
+          '50%': { boxShadow: '0 0 20px 5px hsl(var(--teal) / 0.6)' }
         },
         'drop': {
           '0%': { transform: 'translateY(-50px)', opacity: '0' },
@@ -126,8 +127,8 @@ export default {
           '100%': { transform: 'translateY(0)', opacity: '1' }
         },
         'glow': {
-          '0%, 100%': { boxShadow: '0 0 20px hsl(var(--teal) / 0.3)' },
-          '50%': { boxShadow: '0 0 40px hsl(var(--teal) / 0.5)' }
+          '0%, 100%': { boxShadow: '0 0 20px hsl(var(--lavender) / 0.2)' },
+          '50%': { boxShadow: '0 0 40px hsl(var(--lavender) / 0.4)' }
         }
       },
       animation: {

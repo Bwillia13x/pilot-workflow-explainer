@@ -30,14 +30,14 @@ export const ParticleField = () => {
     window.addEventListener('resize', resizeCanvas);
 
     // Initialize particles
-    const particleCount = 50;
+    const particleCount = 40;
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      size: Math.random() * 2 + 1,
-      opacity: Math.random() * 0.3 + 0.1
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
+      size: Math.random() * 2 + 0.5,
+      opacity: Math.random() * 0.2 + 0.05
     }));
 
     const animate = () => {
@@ -54,10 +54,10 @@ export const ParticleField = () => {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle
+        // Draw particle - soft lavender/purple color
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(174, 42%, 50%, ${particle.opacity})`;
+        ctx.fillStyle = `hsla(270, 30%, 55%, ${particle.opacity})`;
         ctx.fill();
       });
 
@@ -68,11 +68,11 @@ export const ParticleField = () => {
           const dy = p1.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+          if (distance < 120) {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `hsla(174, 42%, 50%, ${0.1 * (1 - distance / 150)})`;
+            ctx.strokeStyle = `hsla(270, 30%, 55%, ${0.06 * (1 - distance / 120)})`;
             ctx.stroke();
           }
         });
@@ -95,7 +95,7 @@ export const ParticleField = () => {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.7 }}
     />
   );
 };

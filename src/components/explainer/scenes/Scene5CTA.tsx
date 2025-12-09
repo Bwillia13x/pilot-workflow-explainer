@@ -13,10 +13,10 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
       "transition-all duration-700",
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
-      {/* Calm gradient background */}
+      {/* Soft gradient background */}
       <div className={cn(
-        "absolute inset-0 opacity-30",
-        "bg-gradient-to-b from-transparent via-primary/5 to-secondary/10"
+        "absolute inset-0 opacity-50",
+        "bg-gradient-to-b from-transparent via-lavender-light/30 to-lavender-light/50"
       )} />
 
       {/* Logo */}
@@ -25,8 +25,8 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
         isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-teal-muted flex items-center justify-center">
-            <span className="text-xl md:text-2xl font-bold text-primary-foreground">P</span>
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-foreground flex items-center justify-center">
+            <span className="text-xl md:text-2xl font-bold text-background">P</span>
           </div>
           <span className="text-2xl md:text-3xl font-bold text-foreground">Prairie Signal</span>
         </div>
@@ -39,7 +39,7 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
           "transition-all duration-700 delay-200",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          Want to see if a pilot makes sense?
+          <span className="font-serif italic">Want to see if a pilot makes sense?</span>
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground",
@@ -60,23 +60,18 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
           size="lg"
           className={cn(
             "relative px-8 py-6 text-lg md:text-xl font-semibold rounded-xl",
-            "bg-gradient-to-r from-primary to-teal-muted",
-            "text-primary-foreground",
-            "hover:shadow-xl hover:shadow-primary/30",
+            "bg-foreground text-background",
+            "hover:bg-foreground/90",
             "transition-all duration-300",
-            "group overflow-hidden",
+            "group overflow-hidden shadow-lg",
             isActive && "animate-glow"
           )}
           onClick={() => window.open('https://prairiesignal.ca', '_blank')}
         >
-          <span className="relative z-10 flex items-center gap-2">
+          <span className="relative z-10 flex items-center gap-2 uppercase tracking-wide">
             Book a 30 minute strategy call
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </span>
-          {/* Shine effect */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-          </div>
         </Button>
 
         {/* Secondary link */}
@@ -85,8 +80,8 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "text-sm text-muted-foreground hover:text-primary transition-colors",
-            "flex items-center gap-1 group"
+            "text-sm text-muted-foreground hover:text-foreground transition-colors",
+            "flex items-center gap-1 group uppercase tracking-wide"
           )}
         >
           Or see recent builds

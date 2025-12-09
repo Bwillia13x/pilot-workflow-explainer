@@ -8,7 +8,7 @@ interface ProgressBarProps {
 
 export const ProgressBar = ({ progress, totalScenes, currentScene }: ProgressBarProps) => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-muted/30">
+    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-border">
       {/* Progress fill */}
       <div
         className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-100 ease-linear"

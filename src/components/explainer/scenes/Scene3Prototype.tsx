@@ -52,7 +52,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          We turn it into a running prototype.
+          <span className="font-serif">We turn it</span> into a running prototype.
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
@@ -77,10 +77,10 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
               <div
                 className={cn(
                   "relative flex flex-col items-center p-4 md:p-6 rounded-xl",
-                  "border-2 backdrop-blur-sm",
+                  "border-2 bg-background shadow-sm",
                   step.color === 'secondary' 
-                    ? "bg-secondary/10 border-secondary/50" 
-                    : "bg-primary/10 border-primary/50",
+                    ? "border-secondary/50" 
+                    : "border-primary/50",
                   "transition-all duration-500",
                   isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
@@ -88,7 +88,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
               >
                 <div className={cn(
                   "p-3 rounded-lg mb-2",
-                  step.color === 'secondary' ? "bg-secondary/20" : "bg-primary/20"
+                  step.color === 'secondary' ? "bg-secondary/10" : "bg-primary/10"
                 )}>
                   <step.icon className={cn(
                     "w-6 h-6 md:w-8 md:h-8",
@@ -127,7 +127,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
                 )}
                 style={{ transitionDelay: `${500 + i * 150}ms` }}
                 >
-                  <div className="w-8 h-0.5 bg-gradient-to-r from-primary/50 to-primary/30 relative overflow-hidden">
+                  <div className="w-8 h-0.5 bg-gradient-to-r from-primary/40 to-primary/20 relative overflow-hidden">
                     {isActive && (
                       <div 
                         className="absolute inset-0 w-4 h-full bg-primary animate-flow"
@@ -135,7 +135,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
                       />
                     )}
                   </div>
-                  <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-t-transparent border-b-transparent border-l-primary/50" />
+                  <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-t-transparent border-b-transparent border-l-primary/40" />
                 </div>
               )}
             </div>
@@ -153,7 +153,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
               key={i}
               className={cn(
                 "px-3 py-1.5 rounded-full text-xs md:text-sm font-medium",
-                "bg-teal-glow/10 border border-primary/30 text-primary",
+                "bg-primary/10 border border-primary/30 text-primary",
                 "transition-all duration-300"
               )}
               style={{ transitionDelay: `${1100 + i * 100}ms` }}
