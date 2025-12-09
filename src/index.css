@@ -1,82 +1,113 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* PrairieSignal Design System - Deep Navy, Muted Teal, Warm Prairie Gold */
+/* PrairieSignal Design System - Light, Elegant, Lavender Accents */
 
 @layer base {
   :root {
-    /* Deep Navy/Slate base */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    /* Light elegant base */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 15%;
 
-    --card: 222 47% 14%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
 
-    --popover: 222 47% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
 
-    /* Muted Teal accent */
-    --primary: 174 42% 50%;
-    --primary-foreground: 222 47% 11%;
+    /* Soft lavender/purple primary */
+    --primary: 270 30% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Prairie Gold */
-    --secondary: 43 74% 66%;
-    --secondary-foreground: 222 47% 11%;
+    /* Teal accent for "Frontier" highlights */
+    --secondary: 185 60% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 222 30% 20%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 260 20% 96%;
+    --muted-foreground: 240 5% 50%;
 
-    --accent: 174 30% 25%;
-    --accent-foreground: 174 42% 70%;
+    --accent: 260 30% 94%;
+    --accent-foreground: 270 30% 45%;
 
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 85% 97%;
 
-    --border: 222 30% 25%;
-    --input: 222 30% 25%;
-    --ring: 174 42% 50%;
+    --border: 260 20% 90%;
+    --input: 260 20% 90%;
+    --ring: 270 30% 55%;
 
     --radius: 0.5rem;
 
     /* Custom Prairie Signal tokens */
-    --navy: 222 47% 11%;
-    --navy-light: 222 47% 16%;
-    --navy-lighter: 222 30% 22%;
-    --teal: 174 42% 50%;
-    --teal-muted: 174 30% 40%;
-    --teal-glow: 174 60% 60%;
-    --gold: 43 74% 66%;
-    --gold-warm: 38 90% 55%;
-    --gold-muted: 43 50% 50%;
+    --lavender: 270 30% 55%;
+    --lavender-light: 270 40% 92%;
+    --lavender-muted: 270 20% 75%;
+    --teal: 185 60% 45%;
+    --teal-muted: 185 40% 55%;
+    --teal-glow: 185 60% 60%;
+    
+    /* Dark section colors */
+    --dark-bg: 220 20% 12%;
+    --dark-fg: 0 0% 95%;
+    --dark-muted: 220 10% 40%;
 
     /* Grid and particle effects */
-    --grid-color: 222 30% 20%;
-    --particle-color: 174 42% 50%;
+    --grid-color: 270 20% 85%;
+    --particle-color: 270 30% 55%;
 
     /* Shadows */
-    --shadow-glow-teal: 0 0 40px hsl(174 42% 50% / 0.2);
-    --shadow-glow-gold: 0 0 40px hsl(43 74% 66% / 0.2);
+    --shadow-glow-lavender: 0 0 40px hsl(270 30% 55% / 0.15);
+    --shadow-glow-teal: 0 0 40px hsl(185 60% 45% / 0.15);
 
     /* Chart colors */
-    --chart-1: 174 42% 50%;
-    --chart-2: 43 74% 66%;
-    --chart-3: 222 47% 40%;
-    --chart-4: 174 60% 60%;
-    --chart-5: 38 90% 55%;
+    --chart-1: 270 30% 55%;
+    --chart-2: 185 60% 45%;
+    --chart-3: 260 30% 70%;
+    --chart-4: 185 50% 60%;
+    --chart-5: 270 40% 65%;
 
     /* Sidebar */
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 174 42% 50%;
-    --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 222 30% 20%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 30% 25%;
-    --sidebar-ring: 174 42% 50%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 15%;
+    --sidebar-primary: 270 30% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 260 30% 94%;
+    --sidebar-accent-foreground: 240 10% 15%;
+    --sidebar-border: 260 20% 90%;
+    --sidebar-ring: 270 30% 55%;
 
     --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+
+  .dark {
+    /* Dark mode - used for dark sections */
+    --background: 220 20% 12%;
+    --foreground: 0 0% 95%;
+
+    --card: 220 20% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 220 20% 14%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 270 40% 65%;
+    --primary-foreground: 220 20% 12%;
+
+    --secondary: 185 60% 50%;
+    --secondary-foreground: 220 20% 12%;
+
+    --muted: 220 15% 20%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 220 15% 22%;
+    --accent-foreground: 0 0% 95%;
+
+    --border: 220 15% 25%;
+    --input: 220 15% 25%;
+    --ring: 270 40% 65%;
   }
 }
 
@@ -92,23 +123,33 @@
 
 @layer utilities {
   /* Gradient backgrounds */
-  .gradient-prairie {
+  .gradient-lavender {
     background: linear-gradient(
-      180deg,
-      hsl(var(--navy)) 0%,
-      hsl(var(--navy-light)) 100%
+      135deg,
+      hsl(280 40% 96%) 0%,
+      hsl(260 30% 94%) 50%,
+      hsl(0 0% 100%) 100%
     );
   }
 
-  .gradient-prairie-radial {
+  .gradient-lavender-radial {
     background: radial-gradient(
-      ellipse at center,
-      hsl(var(--navy-light)) 0%,
-      hsl(var(--navy)) 70%
+      ellipse at 50% 30%,
+      hsl(270 40% 92% / 0.6) 0%,
+      hsl(260 30% 96% / 0.3) 40%,
+      transparent 70%
     );
   }
 
   .gradient-cta {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--lavender)) 0%,
+      hsl(var(--lavender-muted)) 100%
+    );
+  }
+
+  .gradient-teal {
     background: linear-gradient(
       135deg,
       hsl(var(--teal)) 0%,
@@ -116,37 +157,36 @@
     );
   }
 
-  .gradient-gold {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--gold)) 0%,
-      hsl(var(--gold-warm)) 100%
-    );
+  /* Dark section styling */
+  .section-dark {
+    background: hsl(var(--dark-bg));
+    color: hsl(var(--dark-fg));
   }
 
   /* Glow effects */
+  .glow-lavender {
+    box-shadow: var(--shadow-glow-lavender);
+  }
+
   .glow-teal {
     box-shadow: var(--shadow-glow-teal);
   }
 
-  .glow-gold {
-    box-shadow: var(--shadow-glow-gold);
-  }
-
-  .text-glow-teal {
-    text-shadow: 0 0 20px hsl(var(--teal) / 0.5);
-  }
-
-  .text-glow-gold {
-    text-shadow: 0 0 20px hsl(var(--gold) / 0.5);
+  .text-glow-lavender {
+    text-shadow: 0 0 20px hsl(var(--lavender) / 0.3);
   }
 
   /* Grid background */
   .bg-grid {
     background-image: 
-      linear-gradient(hsl(var(--grid-color) / 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--grid-color) / 0.3) 1px, transparent 1px);
+      linear-gradient(hsl(var(--grid-color) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-color) / 0.4) 1px, transparent 1px);
     background-size: 40px 40px;
+  }
+
+  /* Serif typography utility */
+  .font-serif {
+    font-family: var(--font-serif);
   }
 
   /* Scene transitions */
@@ -257,10 +297,10 @@
 
 @keyframes highlight-pulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 hsl(var(--gold) / 0.4);
+    box-shadow: 0 0 0 0 hsl(var(--teal) / 0.4);
   }
   50% {
-    box-shadow: 0 0 20px 5px hsl(var(--gold) / 0.6);
+    box-shadow: 0 0 20px 5px hsl(var(--teal) / 0.6);
   }
 }
 
@@ -281,9 +321,9 @@
 
 @keyframes glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--teal) / 0.3), 0 0 40px hsl(var(--teal) / 0.2);
+    box-shadow: 0 0 20px hsl(var(--lavender) / 0.2), 0 0 40px hsl(var(--lavender) / 0.1);
   }
   50% {
-    box-shadow: 0 0 30px hsl(var(--teal) / 0.5), 0 0 60px hsl(var(--teal) / 0.3);
+    box-shadow: 0 0 30px hsl(var(--lavender) / 0.3), 0 0 60px hsl(var(--lavender) / 0.2);
   }
 }

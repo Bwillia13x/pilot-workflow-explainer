@@ -37,7 +37,7 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          Right now, your team is doing this by hand.
+          <span className="font-serif">Right now,</span> your team is doing this by hand.
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
@@ -72,7 +72,7 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
                 strokeDasharray="4 4"
                 className={cn(
                   "transition-all duration-1000",
-                  isActive ? "opacity-40" : "opacity-0"
+                  isActive ? "opacity-30" : "opacity-0"
                 )}
                 style={{ transitionDelay: `${400 + i * 100}ms` }}
               />
@@ -96,10 +96,10 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
               transitionDelay: `${300 + i * 100}ms`
             }}
           >
-            <div className="p-3 md:p-4 rounded-lg bg-card/50 border border-border/50 backdrop-blur-sm">
+            <div className="p-3 md:p-4 rounded-lg bg-background border border-border shadow-sm">
               <item.Icon className="w-6 h-6 md:w-8 md:h-8 text-muted-foreground" />
             </div>
-            <span className="text-xs md:text-sm text-muted-foreground whitespace-nowrap">
+            <span className="text-xs md:text-sm text-muted-foreground whitespace-nowrap font-medium">
               {item.label}
             </span>
           </div>
@@ -108,8 +108,8 @@ export const Scene1MessyToday = ({ isActive }: Scene1Props) => {
         {/* Standard Adopter tag */}
         <div className={cn(
           "absolute top-0 right-0 px-3 py-1.5 rounded-full",
-          "bg-muted/50 border border-border/50",
-          "text-xs font-medium text-muted-foreground",
+          "bg-muted border border-border",
+          "text-xs font-medium text-muted-foreground uppercase tracking-wider",
           "transition-all duration-500 delay-700",
           isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
         )}>

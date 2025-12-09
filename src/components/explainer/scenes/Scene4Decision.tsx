@@ -41,7 +41,7 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          You keep, expand, or discard.
+          <span className="font-serif italic">You keep, expand, or discard.</span>
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
@@ -81,10 +81,10 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
               key={i}
               className={cn(
                 "relative flex flex-col items-center p-6 md:p-8 rounded-xl",
-                "border-2 backdrop-blur-sm transition-all duration-500",
+                "border-2 bg-background shadow-sm transition-all duration-500",
                 card.selected 
-                  ? "bg-primary/15 border-primary shadow-lg shadow-primary/20" 
-                  : "bg-card/30 border-border/50 hover:border-border",
+                  ? "border-primary shadow-lg shadow-primary/10" 
+                  : "border-border hover:border-muted-foreground/30",
                 isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: `${500 + i * 100}ms` }}
@@ -96,7 +96,7 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
               
               <div className={cn(
                 "p-4 rounded-full mb-4",
-                card.selected ? "bg-primary/20" : "bg-muted/50"
+                card.selected ? "bg-primary/10" : "bg-muted"
               )}>
                 <card.icon className={cn(
                   "w-8 h-8 md:w-10 md:h-10",
@@ -120,7 +120,7 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
                 <div className={cn(
                   "absolute -top-3 left-1/2 -translate-x-1/2",
                   "px-3 py-1 rounded-full bg-primary text-primary-foreground",
-                  "text-xs font-semibold",
+                  "text-xs font-semibold uppercase tracking-wide",
                   "transition-all duration-500 delay-800",
                   isActive ? "opacity-100 scale-100" : "opacity-0 scale-75"
                 )}>
