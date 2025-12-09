@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Check, Plus, Archive } from 'lucide-react';
+import { GravityDecision } from '../visualizations/GravityDecision';
 
 interface Scene4Props {
   isActive: boolean;
@@ -34,6 +35,9 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
       "transition-all duration-700",
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
+      {/* Gravity physics visualization */}
+      <GravityDecision isActive={isActive} showDrop={showDrop} className="opacity-50" />
+
       {/* Text content */}
       <div className="text-center mb-8 md:mb-12 z-10">
         <h2 className={cn(
@@ -54,11 +58,11 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
 
       {/* Mini prototype flow (drops into selected card) */}
       <div className={cn(
-        "mb-8 transition-all duration-700 delay-300",
+        "mb-8 transition-all duration-700 delay-300 z-10",
         isActive ? "opacity-100" : "opacity-0",
         showDrop ? "animate-drop" : ""
       )}>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/30">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 backdrop-blur-sm">
           <div className="w-2 h-2 rounded-full bg-primary" />
           <span className="text-xs md:text-sm text-primary font-medium">Your prototype</span>
           <div className="flex gap-1">
@@ -71,7 +75,7 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
 
       {/* Decision cards */}
       <div className={cn(
-        "relative w-full max-w-3xl",
+        "relative w-full max-w-3xl z-10",
         "transition-all duration-700 delay-400",
         isActive ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
@@ -81,9 +85,9 @@ export const Scene4Decision = ({ isActive, showDrop }: Scene4Props) => {
               key={i}
               className={cn(
                 "relative flex flex-col items-center p-6 md:p-8 rounded-xl",
-                "border-2 bg-background shadow-sm transition-all duration-500",
+                "border-2 bg-background/95 shadow-lg backdrop-blur-sm transition-all duration-500",
                 card.selected 
-                  ? "border-primary shadow-lg shadow-primary/10" 
+                  ? "border-primary shadow-xl shadow-primary/10" 
                   : "border-border hover:border-muted-foreground/30",
                 isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}

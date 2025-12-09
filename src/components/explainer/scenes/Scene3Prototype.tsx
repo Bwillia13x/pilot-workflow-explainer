@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Zap, Bot, User, Database } from 'lucide-react';
+import { DataFlowPipeline } from '../visualizations/DataFlowPipeline';
 
 interface Scene3Props {
   isActive: boolean;
@@ -45,6 +46,9 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
       "transition-all duration-700",
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
+      {/* Data flow pipeline visualization */}
+      <DataFlowPipeline isActive={isActive} className="opacity-50" />
+
       {/* Text content */}
       <div className="text-center mb-8 md:mb-12 z-10">
         <h2 className={cn(
@@ -52,7 +56,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <span className="font-serif">We turn it</span> into a running prototype.
+          <span className="font-serif italic">We turn it</span> into a running prototype.
         </h2>
         <p className={cn(
           "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
@@ -65,7 +69,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
 
       {/* Streamlined flow diagram */}
       <div className={cn(
-        "relative w-full max-w-4xl",
+        "relative w-full max-w-4xl z-10",
         "transition-all duration-700 delay-300",
         isActive ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
@@ -77,7 +81,7 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
               <div
                 className={cn(
                   "relative flex flex-col items-center p-4 md:p-6 rounded-xl",
-                  "border-2 bg-background shadow-sm",
+                  "border-2 bg-background/95 shadow-lg backdrop-blur-sm",
                   step.color === 'secondary' 
                     ? "border-secondary/50" 
                     : "border-primary/50",
