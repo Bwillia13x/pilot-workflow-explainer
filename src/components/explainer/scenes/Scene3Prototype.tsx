@@ -47,19 +47,19 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
       {/* Data flow pipeline visualization */}
-      <DataFlowPipeline isActive={isActive} className="opacity-50" />
+      <DataFlowPipeline isActive={isActive} className="opacity-40" />
 
       {/* Text content */}
       <div className="text-center mb-8 md:mb-12 z-10">
         <h2 className={cn(
-          "text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4",
+          "text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 tracking-premium",
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <span className="font-serif italic">We turn it</span> into a running prototype.
+          <span className="font-serif italic text-glow-lavender">We turn it</span> into a running prototype.
         </h2>
         <p className={cn(
-          "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
+          "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed",
           "transition-all duration-700 delay-200",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
@@ -74,81 +74,88 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
         isActive ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
         {/* Flow container */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-3">
           {flowSteps.map((step, i) => (
             <div key={i} className="flex items-center">
-              {/* Step box */}
+              {/* Step box with glass effect */}
               <div
                 className={cn(
-                  "relative flex flex-col items-center p-4 md:p-6 rounded-xl",
-                  "border-2 bg-background/95 shadow-lg backdrop-blur-sm",
+                  "relative flex flex-col items-center p-5 md:p-6 rounded-2xl",
+                  "glass-card-elevated hover-lift",
                   step.color === 'secondary' 
-                    ? "border-secondary/50" 
-                    : "border-primary/50",
+                    ? "border-secondary/30 shadow-lg shadow-secondary/10" 
+                    : "border-primary/30 shadow-lg shadow-primary/10",
                   "transition-all duration-500",
                   isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
-                style={{ transitionDelay: `${400 + i * 150}ms` }}
+                style={{ transitionDelay: `${400 + i * 120}ms` }}
               >
+                {/* Icon container with gradient background */}
                 <div className={cn(
-                  "p-3 rounded-lg mb-2",
-                  step.color === 'secondary' ? "bg-secondary/10" : "bg-primary/10"
+                  "p-3.5 rounded-xl mb-3",
+                  step.color === 'secondary' 
+                    ? "bg-gradient-to-br from-secondary/15 to-secondary/5" 
+                    : "bg-gradient-to-br from-primary/15 to-primary/5"
                 )}>
                   <step.icon className={cn(
-                    "w-6 h-6 md:w-8 md:h-8",
+                    "w-6 h-6 md:w-7 md:h-7",
                     step.color === 'secondary' ? "text-secondary" : "text-primary"
                   )} />
                 </div>
                 <span className={cn(
-                  "text-sm md:text-base font-semibold",
+                  "text-sm md:text-base font-semibold tracking-wide",
                   step.color === 'secondary' ? "text-secondary" : "text-primary"
                 )}>
                   {step.label}
                 </span>
-                <span className="text-xs text-muted-foreground mt-1">
+                <span className="text-xs text-muted-foreground mt-1 tracking-wide">
                   {step.sublabel}
                 </span>
 
-                {/* Flow indicator dot */}
+                {/* Flow indicator dot with pulse */}
                 {isActive && (
-                  <div 
-                    className={cn(
-                      "absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full",
-                      step.color === 'secondary' ? "bg-secondary" : "bg-primary",
-                      "animate-pulse"
-                    )}
-                    style={{ animationDelay: `${i * 0.5}s` }}
-                  />
+                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2">
+                    <span className="relative flex h-3 w-3">
+                      <span className={cn(
+                        "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
+                        step.color === 'secondary' ? "bg-secondary" : "bg-primary"
+                      )} style={{ animationDelay: `${i * 0.4}s` }} />
+                      <span className={cn(
+                        "relative inline-flex rounded-full h-3 w-3",
+                        step.color === 'secondary' ? "bg-secondary" : "bg-primary"
+                      )} />
+                    </span>
+                  </div>
                 )}
               </div>
 
-              {/* Arrow connector */}
+              {/* Arrow connector with animated flow */}
               {i < flowSteps.length - 1 && (
                 <div className={cn(
-                  "hidden md:flex items-center mx-2",
+                  "hidden md:flex items-center mx-3",
                   "transition-all duration-500",
                   isActive ? "opacity-100" : "opacity-0"
                 )}
-                style={{ transitionDelay: `${500 + i * 150}ms` }}
+                style={{ transitionDelay: `${500 + i * 120}ms` }}
                 >
-                  <div className="w-8 h-0.5 bg-gradient-to-r from-primary/40 to-primary/20 relative overflow-hidden">
+                  <div className="w-10 h-1 rounded-full bg-gradient-to-r from-primary/30 to-primary/10 relative overflow-hidden">
                     {isActive && (
                       <div 
-                        className="absolute inset-0 w-4 h-full bg-primary animate-flow"
-                        style={{ animationDelay: `${i * 0.3}s` }}
+                        className="absolute inset-0 w-5 h-full bg-gradient-to-r from-transparent via-primary to-transparent animate-flow"
+                        style={{ animationDelay: `${i * 0.25}s` }}
                       />
                     )}
                   </div>
-                  <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-t-transparent border-b-transparent border-l-primary/40" />
+                  <div className="w-0 h-0 border-t-[5px] border-b-[5px] border-l-[7px] border-t-transparent border-b-transparent border-l-primary/40" />
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        {/* Output labels */}
+        {/* Output labels - premium pills */}
         <div className={cn(
-          "flex flex-wrap justify-center gap-3 mt-8",
+          "flex flex-wrap justify-center gap-3 mt-10",
           "transition-all duration-500 delay-1000",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
@@ -156,13 +163,14 @@ export const Scene3Prototype = ({ isActive }: Scene3Props) => {
             <span
               key={i}
               className={cn(
-                "px-3 py-1.5 rounded-full text-xs md:text-sm font-medium",
-                "bg-primary/10 border border-primary/30 text-primary",
-                "transition-all duration-300"
+                "px-4 py-2 rounded-full text-xs md:text-sm font-semibold",
+                "glass-card border-gradient",
+                "text-primary tracking-wide",
+                "transition-all duration-300 hover-lift"
               )}
-              style={{ transitionDelay: `${1100 + i * 100}ms` }}
+              style={{ transitionDelay: `${1100 + i * 80}ms` }}
             >
-              {label}
+              <span className="relative z-10">{label}</span>
             </span>
           ))}
         </div>

@@ -28,19 +28,19 @@ export const Scene2WorkingSession = ({ isActive }: Scene2Props) => {
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
       {/* Network simulation background */}
-      <NetworkSimulation isActive={isActive} className="opacity-40" />
+      <NetworkSimulation isActive={isActive} className="opacity-35" />
 
       {/* Text content */}
       <div className="text-center mb-8 md:mb-12 z-10">
         <h2 className={cn(
-          "text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4",
+          "text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 tracking-premium",
           "transition-all duration-700 delay-100",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <span className="font-serif italic">We sit down</span> for a working session.
+          <span className="font-serif italic text-glow-lavender">We sit down</span> for a working session.
         </h2>
         <p className={cn(
-          "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
+          "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed",
           "transition-all duration-700 delay-200",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
@@ -48,32 +48,37 @@ export const Scene2WorkingSession = ({ isActive }: Scene2Props) => {
         </p>
       </div>
 
-      {/* Whiteboard-style diagram */}
+      {/* Whiteboard-style diagram with glass effect */}
       <div className={cn(
         "relative w-full max-w-4xl z-10",
         "transition-all duration-700 delay-300",
         isActive ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
         {/* Main whiteboard container */}
-        <div className="bg-background/90 border border-border rounded-xl p-6 md:p-8 shadow-lg backdrop-blur-md">
+        <div className="glass-card-elevated rounded-2xl p-6 md:p-8">
           {/* Grid of workflow steps */}
           <div className="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
             {workflowSteps.map((step, i) => (
               <div
                 key={i}
                 className={cn(
-                  "relative px-3 py-2 md:px-4 md:py-3 rounded-lg border text-center",
-                  "transition-all duration-500",
+                  "relative px-3 py-2.5 md:px-4 md:py-3 rounded-xl border text-center",
+                  "transition-all duration-500 hover-lift",
                   step.highlighted 
-                    ? "bg-secondary/10 border-secondary text-secondary" 
-                    : "bg-muted/30 border-border text-muted-foreground",
+                    ? "glass border-secondary/40 text-secondary shadow-lg shadow-secondary/10" 
+                    : "bg-muted/40 border-border/50 text-muted-foreground",
                   isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
-                style={{ transitionDelay: `${400 + i * 50}ms` }}
+                style={{ transitionDelay: `${400 + i * 40}ms` }}
               >
-                <span className="text-xs md:text-sm font-medium">{step.label}</span>
+                <span className="text-xs md:text-sm font-medium tracking-wide">{step.label}</span>
                 {step.highlighted && (
-                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 bg-secondary text-secondary-foreground text-[10px] font-bold rounded uppercase tracking-wide">
+                  <span className={cn(
+                    "absolute -top-2.5 -right-2 px-2 py-0.5",
+                    "bg-gradient-to-r from-secondary to-teal-glow",
+                    "text-secondary-foreground text-[9px] md:text-[10px] font-bold rounded-full",
+                    "uppercase tracking-wider shadow-md shadow-secondary/20"
+                  )}>
                     High friction
                   </span>
                 )}
@@ -82,15 +87,21 @@ export const Scene2WorkingSession = ({ isActive }: Scene2Props) => {
           </div>
         </div>
 
-        {/* Target caption */}
+        {/* Target caption - premium badge */}
         <div className={cn(
-          "mt-4 md:mt-6 text-right",
+          "mt-5 md:mt-6 text-right",
           "transition-all duration-500 delay-1000",
           isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
         )}>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30">
-            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-            <span className="text-sm font-medium text-secondary">
+          <span className={cn(
+            "inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full",
+            "glass-card border-gradient shadow-lg shadow-secondary/10"
+          )}>
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary" />
+            </span>
+            <span className="text-sm font-semibold text-secondary tracking-wide">
               Target: pays for itself in &lt; 90 days
             </span>
           </span>
