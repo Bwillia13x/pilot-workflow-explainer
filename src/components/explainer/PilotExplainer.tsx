@@ -63,7 +63,7 @@ export const PilotExplainer = () => {
     <section 
       className={cn(
         "relative w-full min-h-screen overflow-hidden",
-        "bg-background"
+        "bg-background noise-overlay"
       )}
       aria-label="How a Pilot Works - Prairie Signal"
     >
@@ -74,7 +74,7 @@ export const PilotExplainer = () => {
       <ParticleField />
 
       {/* Subtle grid */}
-      <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid opacity-25 pointer-events-none" />
 
       {/* Scene container */}
       <div className="relative w-full h-screen">
@@ -92,17 +92,17 @@ export const PilotExplainer = () => {
         currentScene={currentScene} 
       />
 
-      {/* Controls */}
-      <div className="absolute bottom-6 right-6 flex items-center gap-3">
+      {/* Controls - Premium glass styling */}
+      <div className="absolute bottom-8 right-8 flex items-center gap-3 z-30">
         {/* Pause/Play button */}
         {!isComplete && (
           <button
             onClick={togglePause}
             className={cn(
-              "p-2.5 rounded-full",
-              "bg-background/80 backdrop-blur-sm border border-border",
+              "p-3 rounded-full",
+              "glass-card hover-lift",
               "text-muted-foreground hover:text-foreground",
-              "transition-all duration-200 hover:scale-105 shadow-sm"
+              "transition-all duration-300"
             )}
             aria-label={isPaused ? "Play" : "Pause"}
           >
@@ -118,21 +118,21 @@ export const PilotExplainer = () => {
         <button
           onClick={resetAnimation}
           className={cn(
-            "flex items-center gap-2 px-4 py-2.5 rounded-full",
-            "bg-background/80 backdrop-blur-sm border border-border",
+            "flex items-center gap-2.5 px-5 py-3 rounded-full",
+            "glass-card hover-lift",
             "text-muted-foreground hover:text-foreground",
-            "transition-all duration-200 hover:scale-105 shadow-sm",
-            isComplete && "animate-pulse"
+            "transition-all duration-300",
+            isComplete && "glow-lavender animate-glow"
           )}
           aria-label="Replay animation"
         >
           <RotateCcw className="w-4 h-4" />
-          <span className="text-sm font-medium">Replay</span>
+          <span className="text-sm font-semibold tracking-wide">Replay</span>
         </button>
       </div>
 
-      {/* Scene indicator (small dots) */}
-      <div className="absolute bottom-6 left-6 flex items-center gap-2">
+      {/* Scene indicator (small dots) - Premium styling */}
+      <div className="absolute bottom-8 left-8 flex items-center gap-2.5 z-30">
         {Array.from({ length: TOTAL_SCENES }).map((_, i) => (
           <button
             key={i}
@@ -143,12 +143,13 @@ export const PilotExplainer = () => {
               if (i < 3) setShowScene4Drop(false);
             }}
             className={cn(
-              "w-2 h-2 rounded-full transition-all duration-300",
+              "h-2.5 rounded-full transition-all duration-300",
+              "hover:scale-110",
               currentScene === i 
-                ? "bg-primary w-6" 
+                ? "bg-gradient-to-r from-primary to-secondary w-8 shadow-md shadow-primary/30" 
                 : currentScene > i 
-                  ? "bg-primary/50" 
-                  : "bg-border"
+                  ? "bg-primary/50 w-2.5" 
+                  : "bg-border/60 w-2.5 hover:bg-border"
             )}
             aria-label={`Go to scene ${i + 1}`}
           />

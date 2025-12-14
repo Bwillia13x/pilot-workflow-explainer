@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { ConvergingParticles } from '../visualizations/ConvergingParticles';
 
 interface Scene5Props {
@@ -15,38 +15,45 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
     )}>
       {/* Converging particles visualization */}
-      <ConvergingParticles isActive={isActive} className="opacity-60" />
+      <ConvergingParticles isActive={isActive} className="opacity-50" />
 
       {/* Soft gradient background */}
       <div className={cn(
-        "absolute inset-0 opacity-50 pointer-events-none",
-        "bg-gradient-to-b from-transparent via-lavender-light/30 to-lavender-light/50"
+        "absolute inset-0 opacity-60 pointer-events-none",
+        "bg-gradient-to-b from-transparent via-lavender-light/40 to-lavender-light/60"
       )} />
 
-      {/* Logo */}
+      {/* Logo with glass effect */}
       <div className={cn(
-        "mb-8 transition-all duration-700 delay-100 z-10",
+        "mb-10 transition-all duration-700 delay-100 z-10",
         isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-foreground flex items-center justify-center shadow-lg">
-            <span className="text-xl md:text-2xl font-bold text-background">P</span>
+        <div className="flex items-center gap-4">
+          <div className={cn(
+            "w-12 h-12 md:w-14 md:h-14 rounded-xl",
+            "bg-gradient-to-br from-foreground to-foreground/80",
+            "flex items-center justify-center",
+            "shadow-xl shadow-foreground/20"
+          )}>
+            <span className="text-2xl md:text-3xl font-bold text-background">P</span>
           </div>
-          <span className="text-2xl md:text-3xl font-bold text-foreground">Prairie Signal</span>
+          <span className="text-2xl md:text-3xl font-bold text-foreground tracking-premium">
+            Prairie Signal
+          </span>
         </div>
       </div>
 
       {/* Text content */}
-      <div className="text-center mb-10 md:mb-12 z-10 max-w-2xl">
+      <div className="text-center mb-12 md:mb-14 z-10 max-w-2xl">
         <h2 className={cn(
-          "text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4",
+          "text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 tracking-premium",
           "transition-all duration-700 delay-200",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <span className="font-serif italic">Want to see if a pilot makes sense?</span>
+          <span className="font-serif italic text-glow-lavender">Want to see if a pilot makes sense?</span>
         </h2>
         <p className={cn(
-          "text-lg md:text-xl text-muted-foreground",
+          "text-lg md:text-xl text-muted-foreground leading-relaxed",
           "transition-all duration-700 delay-300",
           isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
@@ -54,28 +61,26 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
         </p>
       </div>
 
-      {/* CTA Button */}
+      {/* CTA Button - Premium Hero Style */}
       <div className={cn(
-        "flex flex-col items-center gap-4 z-10",
+        "flex flex-col items-center gap-5 z-10",
         "transition-all duration-700 delay-400",
         isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}>
         <Button
-          size="lg"
+          variant="hero"
+          size="xl"
           className={cn(
-            "relative px-8 py-6 text-lg md:text-xl font-semibold rounded-xl",
-            "bg-foreground text-background",
-            "hover:bg-foreground/90",
-            "transition-all duration-300",
-            "group overflow-hidden shadow-xl",
+            "relative group shimmer",
             isActive && "animate-glow"
           )}
           onClick={() => window.open('https://prairiesignal.ca', '_blank')}
         >
-          <span className="relative z-10 flex items-center gap-2 uppercase tracking-wide">
+          <Sparkles className="w-5 h-5 mr-1 opacity-70 group-hover:opacity-100 transition-opacity" />
+          <span className="uppercase tracking-wide-premium font-bold">
             Book a 30 minute strategy call
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </span>
+          <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
         </Button>
 
         {/* Secondary link */}
@@ -84,22 +89,27 @@ export const Scene5CTA = ({ isActive }: Scene5Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "text-sm text-muted-foreground hover:text-foreground transition-colors",
-            "flex items-center gap-1 group uppercase tracking-wide"
+            "text-sm text-muted-foreground hover:text-foreground transition-all duration-300",
+            "flex items-center gap-1.5 group",
+            "uppercase tracking-wide-premium font-medium",
+            "hover:tracking-widest"
           )}
         >
           Or see recent builds
-          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
         </a>
       </div>
 
-      {/* Tagline */}
+      {/* Tagline with glass pill */}
       <div className={cn(
         "absolute bottom-8 left-1/2 -translate-x-1/2 z-10",
         "transition-all duration-700 delay-600",
         isActive ? "opacity-100" : "opacity-0"
       )}>
-        <span className="text-sm text-muted-foreground">
+        <span className={cn(
+          "inline-block px-6 py-2.5 rounded-full",
+          "glass-card text-sm text-muted-foreground font-medium tracking-wide"
+        )}>
           Practical AI systems for Alberta businesses
         </span>
       </div>
