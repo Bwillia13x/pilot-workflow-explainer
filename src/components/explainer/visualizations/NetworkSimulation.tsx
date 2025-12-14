@@ -15,12 +15,14 @@ interface Node {
   highlighted: boolean;
   targetX: number;
   targetY: number;
+  pulsePhase: number;
 }
 
 interface Connection {
   from: number;
   to: number;
   strength: number;
+  pulseOffset: number;
 }
 
 export const NetworkSimulation = ({ isActive, className }: NetworkSimulationProps) => {
@@ -65,14 +67,15 @@ export const NetworkSimulation = ({ isActive, className }: NetworkSimulationProp
         const targetX = offsetX + col * spacing;
         const targetY = offsetY + row * spacing;
         nodesRef.current.push({
-          x: targetX + (Math.random() - 0.5) * 100,
-          y: targetY + (Math.random() - 0.5) * 100,
+          x: targetX + (Math.random() - 0.5) * 150,
+          y: targetY + (Math.random() - 0.5) * 150,
           vx: 0,
           vy: 0,
-          radius: 6 + Math.random() * 4,
+          radius: 8 + Math.random() * 6,
           highlighted: [1, 4, 5, 9].includes(row * cols + col),
           targetX,
           targetY,
+          pulsePhase: Math.random() * Math.PI * 2,
         });
       }
     }
@@ -82,14 +85,14 @@ export const NetworkSimulation = ({ isActive, className }: NetworkSimulationProp
     nodesRef.current.forEach((_, i) => {
       // Connect to neighbors
       if (i % cols < cols - 1) {
-        connectionsRef.current.push({ from: i, to: i + 1, strength: 0.5 + Math.random() * 0.5 });
+        connectionsRef.current.push({ from: i, to: i + 1, strength: 0.6 + Math.random() * 0.4, pulseOffset: Math.random() * Math.PI * 2 });
       }
       if (i < nodesRef.current.length - cols) {
-        connectionsRef.current.push({ from: i, to: i + cols, strength: 0.5 + Math.random() * 0.5 });
+        connectionsRef.current.push({ from: i, to: i + cols, strength: 0.6 + Math.random() * 0.4, pulseOffset: Math.random() * Math.PI * 2 });
       }
-      // Some diagonal connections
-      if (Math.random() > 0.6 && i % cols < cols - 1 && i < nodesRef.current.length - cols) {
-        connectionsRef.current.push({ from: i, to: i + cols + 1, strength: 0.3 });
+      // Diagonal connections
+      if (Math.random() > 0.5 && i % cols < cols - 1 && i < nodesRef.current.length - cols) {
+        connectionsRef.current.push({ from: i, to: i + cols + 1, strength: 0.4, pulseOffset: Math.random() * Math.PI * 2 });
       }
     });
 
@@ -108,90 +111,144 @@ export const NetworkSimulation = ({ isActive, className }: NetworkSimulationProp
         // Spring force towards target
         const dx = node.targetX - node.x;
         const dy = node.targetY - node.y;
-        const springForce = 0.02;
+        const springForce = 0.025;
         node.vx += dx * springForce;
         node.vy += dy * springForce;
 
         // Add gentle floating motion
-        node.vx += Math.sin(timeRef.current * 2 + node.targetX * 0.01) * 0.1;
-        node.vy += Math.cos(timeRef.current * 1.5 + node.targetY * 0.01) * 0.08;
+        node.vx += Math.sin(timeRef.current * 1.5 + node.targetX * 0.01 + node.pulsePhase) * 0.15;
+        node.vy += Math.cos(timeRef.current * 1.2 + node.targetY * 0.01 + node.pulsePhase) * 0.12;
 
         // Damping
-        node.vx *= 0.92;
-        node.vy *= 0.92;
+        node.vx *= 0.9;
+        node.vy *= 0.9;
 
         // Update position
         node.x += node.vx;
         node.y += node.vy;
       });
 
-      // Draw connections
+      // Draw connections with animated pulses
       connectionsRef.current.forEach((conn) => {
         const from = nodesRef.current[conn.from];
         const to = nodesRef.current[conn.to];
-
-        const gradient = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
         const fromHighlight = from.highlighted;
         const toHighlight = to.highlighted;
+        const isHighlightedConn = fromHighlight || toHighlight;
 
-        if (fromHighlight || toHighlight) {
-          gradient.addColorStop(0, fromHighlight ? 'hsla(185, 60%, 45%, 0.6)' : 'hsla(270, 30%, 55%, 0.3)');
-          gradient.addColorStop(1, toHighlight ? 'hsla(185, 60%, 45%, 0.6)' : 'hsla(270, 30%, 55%, 0.3)');
+        // Connection line with gradient
+        const gradient = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
+        if (isHighlightedConn) {
+          gradient.addColorStop(0, fromHighlight ? 'hsla(185, 60%, 50%, 0.7)' : 'hsla(270, 35%, 60%, 0.4)');
+          gradient.addColorStop(1, toHighlight ? 'hsla(185, 60%, 50%, 0.7)' : 'hsla(270, 35%, 60%, 0.4)');
         } else {
-          gradient.addColorStop(0, 'hsla(270, 20%, 70%, 0.2)');
-          gradient.addColorStop(1, 'hsla(270, 20%, 70%, 0.2)');
+          gradient.addColorStop(0, 'hsla(270, 25%, 70%, 0.25)');
+          gradient.addColorStop(1, 'hsla(270, 25%, 70%, 0.25)');
         }
 
         ctx.beginPath();
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = conn.strength * 2;
+        ctx.lineWidth = isHighlightedConn ? conn.strength * 2.5 : conn.strength * 1.5;
         ctx.moveTo(from.x, from.y);
         ctx.lineTo(to.x, to.y);
         ctx.stroke();
 
-        // Animated pulse along highlighted connections
-        if ((fromHighlight || toHighlight) && isActive) {
-          const pulsePos = (Math.sin(timeRef.current * 3 + conn.from * 0.5) + 1) / 2;
-          const pulseX = from.x + (to.x - from.x) * pulsePos;
-          const pulseY = from.y + (to.y - from.y) * pulsePos;
+        // Animated pulses along connections
+        if (isHighlightedConn && isActive) {
+          const numPulses = 2;
+          for (let p = 0; p < numPulses; p++) {
+            const pulsePos = ((timeRef.current * 0.5 + conn.pulseOffset + p * 0.5) % 1);
+            const pulseX = from.x + (to.x - from.x) * pulsePos;
+            const pulseY = from.y + (to.y - from.y) * pulsePos;
+            const pulseSize = 3 + Math.sin(timeRef.current * 4 + p) * 1;
 
-          ctx.beginPath();
-          ctx.arc(pulseX, pulseY, 3, 0, Math.PI * 2);
-          ctx.fillStyle = 'hsla(185, 60%, 55%, 0.8)';
-          ctx.fill();
+            // Pulse glow
+            const pulseGlow = ctx.createRadialGradient(
+              pulseX, pulseY, 0,
+              pulseX, pulseY, pulseSize * 3
+            );
+            pulseGlow.addColorStop(0, 'hsla(185, 65%, 60%, 0.8)');
+            pulseGlow.addColorStop(1, 'hsla(185, 65%, 60%, 0)');
+            ctx.beginPath();
+            ctx.arc(pulseX, pulseY, pulseSize * 3, 0, Math.PI * 2);
+            ctx.fillStyle = pulseGlow;
+            ctx.fill();
+
+            // Pulse core
+            ctx.beginPath();
+            ctx.arc(pulseX, pulseY, pulseSize, 0, Math.PI * 2);
+            ctx.fillStyle = 'hsla(185, 70%, 65%, 1)';
+            ctx.fill();
+          }
         }
       });
 
-      // Draw nodes
+      // Draw nodes with enhanced effects
       nodesRef.current.forEach((node) => {
-        // Glow for highlighted nodes
+        const pulseScale = 1 + Math.sin(timeRef.current * 2.5 + node.pulsePhase) * 0.15;
+
+        // Outer glow for all nodes
+        const outerGlow = ctx.createRadialGradient(
+          node.x, node.y, 0,
+          node.x, node.y, node.radius * 4 * pulseScale
+        );
         if (node.highlighted) {
-          const glowGradient = ctx.createRadialGradient(
+          outerGlow.addColorStop(0, 'hsla(185, 60%, 55%, 0.35)');
+          outerGlow.addColorStop(0.5, 'hsla(185, 60%, 55%, 0.1)');
+          outerGlow.addColorStop(1, 'hsla(185, 60%, 55%, 0)');
+        } else {
+          outerGlow.addColorStop(0, 'hsla(270, 30%, 60%, 0.2)');
+          outerGlow.addColorStop(1, 'hsla(270, 30%, 60%, 0)');
+        }
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius * 4 * pulseScale, 0, Math.PI * 2);
+        ctx.fillStyle = outerGlow;
+        ctx.fill();
+
+        // Inner glow for highlighted nodes
+        if (node.highlighted) {
+          const innerGlow = ctx.createRadialGradient(
             node.x, node.y, 0,
-            node.x, node.y, node.radius * 3
+            node.x, node.y, node.radius * 2.5
           );
-          glowGradient.addColorStop(0, 'hsla(185, 60%, 50%, 0.4)');
-          glowGradient.addColorStop(1, 'hsla(185, 60%, 50%, 0)');
+          innerGlow.addColorStop(0, 'hsla(185, 65%, 60%, 0.6)');
+          innerGlow.addColorStop(1, 'hsla(185, 65%, 60%, 0)');
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
-          ctx.fillStyle = glowGradient;
+          ctx.arc(node.x, node.y, node.radius * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = innerGlow;
           ctx.fill();
         }
 
-        // Node circle
+        // Node body with gradient
+        const nodeGradient = ctx.createRadialGradient(
+          node.x - node.radius * 0.3, node.y - node.radius * 0.3, 0,
+          node.x, node.y, node.radius
+        );
+        if (node.highlighted) {
+          nodeGradient.addColorStop(0, 'hsla(185, 65%, 65%, 1)');
+          nodeGradient.addColorStop(1, 'hsla(185, 60%, 45%, 1)');
+        } else {
+          nodeGradient.addColorStop(0, 'hsla(270, 30%, 75%, 0.9)');
+          nodeGradient.addColorStop(1, 'hsla(270, 25%, 55%, 0.7)');
+        }
+
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = node.highlighted 
-          ? 'hsla(185, 60%, 45%, 0.9)' 
-          : 'hsla(270, 25%, 65%, 0.6)';
+        ctx.fillStyle = nodeGradient;
         ctx.fill();
 
-        // Node border
+        // Node border with highlight
         ctx.strokeStyle = node.highlighted 
-          ? 'hsla(185, 60%, 55%, 1)' 
-          : 'hsla(270, 20%, 75%, 0.8)';
-        ctx.lineWidth = 2;
+          ? 'hsla(185, 70%, 70%, 1)' 
+          : 'hsla(270, 25%, 80%, 0.9)';
+        ctx.lineWidth = node.highlighted ? 2.5 : 1.5;
         ctx.stroke();
+
+        // Shine effect
+        ctx.beginPath();
+        ctx.arc(node.x - node.radius * 0.3, node.y - node.radius * 0.3, node.radius * 0.3, 0, Math.PI * 2);
+        ctx.fillStyle = 'hsla(0, 0%, 100%, 0.4)';
+        ctx.fill();
       });
 
       animationRef.current = requestAnimationFrame(animate);
